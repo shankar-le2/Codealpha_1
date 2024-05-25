@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Gallery</title>
+    <style>
+        /* Define CSS variables */
+        :root {
+            --modal-background-color: rgba(0, 0, 0, 0.9);
+            --modal-close-color: #fff;
+            --modal-close-hover-color: #ccc;
+            --modal-close-size: 40px;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        #gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            padding: 20px;
+            gap: 10px; /* Added gap between images */
+        }
+
+        .image {
+            width: calc(25% - 30px); /* Adjusted width */
+            height: auto;
+            cursor: pointer;
+            transition: opacity 0.3s ease-in-out;
+            margin: 5px; /* Adjusted margin */
+            object-fit: cover; /* Added object-fit property */
+        }
+
+        .image:hover {
+            opacity: 0.7;
+        }
+
+        #modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--modal-background-color);
+            overflow: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #modal-content {
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        .close {
+            color: var(--modal-close-color);
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            font-size: var(--modal-close-size);
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: var(--modal-close-hover-color);
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="gallery">
+        <img class="image" src="https://images.pexels.com/photos/674010/pexels-photo-674010.jpeg?cs=srgb&dl=pexels-anjana-c-169994-674010.jpg&fm=jpg" alt="Image 1">
+        <img class="image" src="https://wallpapers.com/images/featured/beautiful-pictures-vya8o10kwm2qdo1p.jpg" alt="Image 2">
+        <img class="image" src="https://images.unsplash.com/photo-1509043759401-136742328bb3?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8fA%3D%3D" alt="Image 3">
+        <img class="image" src="https://st.depositphotos.com/2001755/3622/i/450/depositphotos_36220949-stock-photo-beautiful-landscape.jpg" alt="Image 3">
+        <img class="image" src="https://assets.hongkiat.com/uploads/100-absolutely-beautiful-nature-wallpapers-for-your-desktop/blue-sea-sunset.jpg" alt="Image 3">
+        <!-- Add more images as needed -->
+    </div>
+
+    <div id="modal">
+        <span class="close">&times;</span>
+        <img class="modal-image" id="modal-content">
+    </div>
+
+    <script>
+        // JavaScript for image modal
+        const images = document.querySelectorAll('.image');
+        const modal = document.getElementById('modal');
+        const modalImg = document.getElementById('modal-content');
+
+        images.forEach(image => {
+            image.addEventListener('click', function() {
+                modal.style.display = 'flex'; // Change display to flex
+                modalImg.src = this.src;
+            });
+        });
+
+        const closeModal = document.getElementsByClassName('close')[0];
+        closeModal.onclick = function() {
+            modal.style.display = 'none';
+        };
+
+        window.onclick = function(event) {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        };
+    </script>
+</body>
+</html>
